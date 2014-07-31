@@ -9,16 +9,20 @@ CELL_COLOR = Gosu::Color.new(0xff00ffff)
 EMPTY_COLOR = Gosu::Color.new(0x00000000)
 
 class NanoWindow < Gosu::Window
-    def initialize
-        super WIN_WIDTH, WIN_HEIGHT, false
-        self.caption = 'Nano Game of Life'
 
+    # Initialize Gosu window and LifeGrid
+    def initialize
+        # Gosu window
+        super WIN_WIDTH, WIN_HEIGHT, false
+        self.caption = 'NanoLife - Conway\'s Game of Life'
         # Create a game of life grid
         @grid = LifeGrid.new(self)
     end
 
+    # Turn on cursor
     def needs_cursor?; true; end
 
+    # Update everything each frame before drawing
     def update
         @grid.update
     end
@@ -38,6 +42,7 @@ class LifeGrid
         self.randomize
     end
 
+    # Utility function to randomize grid
     def randomize
         (0...@num_cols).each do |x|
             (0...@num_rows).each do |y|
@@ -47,6 +52,7 @@ class LifeGrid
 
     end
 
+    # update state of all cells based on Conway's Game of Life rules
     def update
         # for all cells
             # num_neighbors = check neighbors(x,y)
