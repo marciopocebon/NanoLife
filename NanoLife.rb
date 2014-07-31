@@ -7,16 +7,27 @@ WIN_HEIGHT = 600    # Window height
 CELL_SIZE = 10       # Size of cell square
 CELL_COLOR = Gosu::Color.new(0xff00ffff)
 EMPTY_COLOR = Gosu::Color.new(0x00000000)
+MAX_FPS = 11        # For calculating max framerate
 
-class NanoWindow < Gosu::Window
+# Keybinds:
+# s - stop
+# p - play
+# c - clear
+# q or ESC - quit
+# Left Click - Invert status of cell
+
+class LifeGameWindow < Gosu::Window
 
     # Initialize Gosu window and LifeGrid
     def initialize
         # Gosu window
-        super WIN_WIDTH, WIN_HEIGHT, false
+        super WIN_WIDTH, WIN_HEIGHT, false, 1000.0 / MAX_FPS
         self.caption = 'NanoLife - Conway\'s Game of Life'
-        # Create a game of life grid
+        # Create a game of life grid and start randomly
         @grid = LifeGrid.new(self)
+        @grid.randomize
+        # Set running to true. Game can be paused with keyboard
+        @running = true
     end
 
     # Turn on cursor
@@ -24,14 +35,38 @@ class NanoWindow < Gosu::Window
 
     # Update everything each frame before drawing
     def update
-        @grid.update
+        if @running # and delta is met
+            @grid.update
+        end
     end
 
+    # Draw screen
     def draw
         @grid.draw
     end
 
+    # Override callback for a button pressed
+    def button_down(id)
+        if id == Gosu::KbEscape or id  == Gosu::KbQ
+            close
+        elsif id == Gosu::KbS
+            @running = false
+        elsif id == Gosu::KbP
+            @running = true
+        elsif id == Gosu::KbC
+            @grid.clear
+        elsif id == Gosu::MsLeft
+            @grid.invert_cell(
+                mouse_x.to_i / CELL_SIZE,
+                mouse_y.to_i / CELL_SIZE
+            )
+
+        end
+    end
+
 end
+
+
 
 class LifeGrid
     def initialize(window)
@@ -39,34 +74,75 @@ class LifeGrid
         @num_rows = WIN_HEIGHT / CELL_SIZE
         @grid = Array.new(@num_cols) {Array.new(@num_rows, 0)}
         @window = window
-        self.randomize
     end
 
-    # Utility function to randomize grid
-    def randomize
+    # Ipdate state of all cells based on Conway's Game of Life rules
+    def update
+        # For all cells check neighbors and kill or birth
+        tmp_grid = @grid
         (0...@num_cols).each do |x|
             (0...@num_rows).each do |y|
-                @grid[x][y] = rand(2)
+                num_neighbors = check_neighbors(x, y)
+
+                if num_neighbors < 2 and @grid[x][y] == 1
+                    tmp_grid[x][y] = 0
+                end
+                if num_neighbors == 2 or num_neighbors == 3
+                    if @grid[x][y] == 1
+                        tmp_grid[x][y] = 1
+                    end
+                end
+                if num_neighbors == 3 and @grid[x][y] == 0
+                    tmp_grid[x][y] = 1
+                end
+                if num_neighbors > 3 and @grid[x][y] == 1
+                    tmp_grid[x][y] = 0
+                end
             end
         end
+        @grid = tmp_grid
 
     end
 
-    # update state of all cells based on Conway's Game of Life rules
-    def update
-        # for all cells
-            # num_neighbors = check neighbors(x,y)
-            # depending on number of neighbors
-                # change state to alive or dead
+    # Given an x and y, calculate how many neighbors cell has
+    def check_neighbors(x, y)
+        num_neighbors = 0
 
+        # Previous row
+        if y > 0 and x > 0
+            num_neighbors += @grid[x-1][y-1]
+        end
+        if y > 0
+            num_neighbors += @grid[x][y-1]
+        end
+        if x < @num_cols - 1 and y > 0
+            num_neighbors += @grid[x+1][y-1]
+        end
+
+        # Current row
+        if x > 0
+            num_neighbors += @grid[x-1][y]
+        end
+        if x < @num_cols - 1
+            num_neighbors += @grid[x+1][y]
+        end
+
+        # Lower row
+        if x > 0 and y < @num_rows - 1
+            num_neighbors += @grid[x-1][y+1]
+        end
+        if y < @num_rows - 1
+            num_neighbors += @grid[x][y+1]
+        end
+        if x < @num_cols - 1 and y < @num_rows - 1
+            num_neighbors += @grid[x+1][y+1]
+        end
+
+        return num_neighbors
     end
 
-    def check_neighbors
-        # check_neighbors
-        # update state
-    end
 
-
+    # Draw the cell grid to the window
     def draw
         # draw grid
         (0...@num_cols).each do |x|
@@ -88,8 +164,32 @@ class LifeGrid
         end
     end
 
+
+    # Flip the state of a cell. Useful for manual click manipulation
+    def invert_cell(x, y)
+        @grid[x][y] = (@grid[x][y] == 0 ? 1 : 0)
+    end
+
+    # Utility function to randomize grid
+    def randomize
+        (0...@num_cols).each do |x|
+            (0...@num_rows).each do |y|
+                @grid[x][y] = rand(2)
+            end
+        end
+    end
+
+    # Utility function to randomize grid
+    def clear
+        (0...@num_cols).each do |x|
+            (0...@num_rows).each do |y|
+                @grid[x][y] = 0
+            end
+        end
+    end
+
 end
 
 
-window = NanoWindow.new
-window.show
+game = LifeGameWindow.new
+game.show
