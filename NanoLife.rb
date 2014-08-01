@@ -2,12 +2,12 @@
 require 'rubygems'
 require 'gosu'
 
-WIN_WIDTH = 800     # Window width
-WIN_HEIGHT = 600    # Window height
-CELL_SIZE = 10       # Size of cell square
+WIN_WIDTH = 1024     # Window width
+WIN_HEIGHT = 768    # Window height
+CELL_SIZE = 8       # Size of cell square
 CELL_COLOR = Gosu::Color.new(0xff00ffff)
 EMPTY_COLOR = Gosu::Color.new(0x00000000)
-MAX_FPS = 11        # For calculating max framerate
+MAX_FPS = 30        # For calculating max framerate
 
 # Keybinds:
 # s - stop
@@ -17,7 +17,6 @@ MAX_FPS = 11        # For calculating max framerate
 # Left Click - Invert status of cell
 
 class LifeGameWindow < Gosu::Window
-
     # Initialize Gosu window and LifeGrid
     def initialize
         # Gosu window
@@ -55,16 +54,17 @@ class LifeGameWindow < Gosu::Window
             @running = true
         elsif id == Gosu::KbC
             @grid.clear
+        elsif id == Gosu::KbR
+                @grid.randomize
         elsif id == Gosu::MsLeft
             @grid.invert_cell(
                 mouse_x.to_i / CELL_SIZE,
                 mouse_y.to_i / CELL_SIZE
             )
-
         end
     end
-
 end
+
 
 
 
@@ -72,14 +72,19 @@ class LifeGrid
     def initialize(window)
         @num_cols = WIN_WIDTH / CELL_SIZE
         @num_rows = WIN_HEIGHT / CELL_SIZE
-        @grid = Array.new(@num_cols) {Array.new(@num_rows, 0)}
+        @grid = create_grid
         @window = window
+    end
+
+    # Create an empty grid array
+    def create_grid
+        return Array.new(@num_cols) {Array.new(@num_rows, 0)}
     end
 
     # Ipdate state of all cells based on Conway's Game of Life rules
     def update
         # For all cells check neighbors and kill or birth
-        tmp_grid = @grid
+        tmp_grid = create_grid
         (0...@num_cols).each do |x|
             (0...@num_rows).each do |y|
                 num_neighbors = check_neighbors(x, y)
@@ -101,7 +106,6 @@ class LifeGrid
             end
         end
         @grid = tmp_grid
-
     end
 
     # Given an x and y, calculate how many neighbors cell has
