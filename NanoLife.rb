@@ -21,7 +21,7 @@ class LifeGameWindow < Gosu::Window
   def initialize
     # Gosu window
     super WIN_WIDTH, WIN_HEIGHT, false, 1000.0 / MAX_FPS
-    self.caption = 'NanoLife - Conway\'s Game of Life'
+    self.caption = 'NanoLifeVisualizer - Conway\'s Game of Life'
     # Create a game of life grid and start randomly
     @grid = LifeGrid.new(self)
     @grid.randomize
