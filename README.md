@@ -1,17 +1,17 @@
-NanoLife
-========
+# NanoLife
 
-Conway's Game of Life implemented in Ruby with Gosu
+John Conway's Game of Life implemented in Ruby with Gosu
 
-Installation and usage
-- git clone https://github.com/NanoDano/NanoLife
-- cd NanoLife
-- gem install gosu #If needed
-- ruby NanoLife.rb
+## Installation and usage
 
-Keybinds:
-- s - Stop the game
-- p - Start(play) the game
+	$ git clone https://github.com/NanoDano/NanoLife
+	$ cd NanoLife
+	$ gem install gosu
+	$ ruby NanoLife.rb
+
+## Keybinds
+
+- s - Start and stop (pause) the game
 - c - Clear the grid
 - r - Randomize the grid
 - Left Click - Invert the state of the cell clicked
