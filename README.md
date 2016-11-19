@@ -29,14 +29,22 @@ Variables can be configured at the top of the program as constants.
 
 ![Screenshot of main window](screenshots/NanoLifeMainWindow.png)
 
+## Troubleshooting
+
+Gosu gem dependency will require native build tools.
+In Windows that means having the Ruby DevKit and in
+Linux installing build-essential, libsdl2-dev,
+libsdl-ttf-dev, libopenal-dev, libpango1.0-dev,
+libsndfile-dev, and ruby-dev packages.
+
 ## Source Code
 
 * [NanoLife (GitHub.com)](https://www.github.com/DevDungeon/NanoLife)
 
 ## Contact
 
-NanoDano <nanodano@devdungeon.com>
-http://www.devdungeon.com
+* NanoDano <nanodano@devdungeon.com>
+* http://www.devdungeon.com
 
 ## License
 
