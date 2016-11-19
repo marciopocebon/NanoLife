@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require 'nanolife'
+game = LifeGameWindow.new
+game.show

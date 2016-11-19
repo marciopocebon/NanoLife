@@ -8,13 +8,12 @@ John Conway's Game of Life implemented in Ruby with Gosu.
     $ gem install nanolife
     $ nanolife
     
-### From Source
+### Including in Source Code
 
-	$ git clone https://github.com/DevDungeon/NanoLife
-	$ cd NanoLife
-	$ gem install gosu
-	$ ruby NanoLife.rb
-
+	$ irb
+	>>> require 'nanolife'
+    >>> game = LifeGameWindow.new
+    >>> game.show
 
 ## Keybinds
 
@@ -45,5 +44,5 @@ MIT. See LICENSE.txt.
 
 ## Changelog
 
-v1.0 - 2016/11/19 - Releasing as gem on GitHub
-v0.5 - 2014/07/30 - Initial implementation
+* v1.0 - 2016/11/19 - Releasing as gem on GitHub
+* v0.1 - 2014/07/30 - Initial implementation

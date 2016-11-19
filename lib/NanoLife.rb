@@ -17,6 +17,7 @@ MAX_FPS = 30    # For calculating max framerate
 # q/Esc - Quit
 
 class LifeGameWindow < Gosu::Window
+  # Game of Life window/screen manager
 
   # Initialize Gosu window and LifeGrid
   def initialize
@@ -65,6 +66,8 @@ class LifeGameWindow < Gosu::Window
 end
 
 class LifeGrid
+  # Manages the underlying array of cells and their life process
+
   def initialize(window)
     @num_cols = WIN_WIDTH / CELL_SIZE
     @num_rows = WIN_HEIGHT / CELL_SIZE
@@ -188,5 +191,3 @@ class LifeGrid
 
 end
 
-game = LifeGameWindow.new
-game.show
