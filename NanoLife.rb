@@ -10,10 +10,11 @@ EMPTY_COLOR = Gosu::Color.new(0x00000000)
 MAX_FPS = 30    # For calculating max framerate
 
 # Keybinds:
-# s - Start/Stop
-# c - clear
-# q or ESC - quit
-# Left Click - Invert status of cell
+# s - Start and stop (pause) the game
+# c - Clear the grid
+# r - Randomize the grid
+# Left Click - Invert the state of the cell clicked
+# q/Esc - Quit
 
 class LifeGameWindow < Gosu::Window
 
@@ -21,7 +22,7 @@ class LifeGameWindow < Gosu::Window
   def initialize
     # Gosu window
     super WIN_WIDTH, WIN_HEIGHT, false, 1000.0 / MAX_FPS
-    self.caption = 'NanoLifeVisualizer - Conway\'s Game of Life'
+    self.caption = 'NanoLife - Conway\'s Game of Life'
     # Create a game of life grid and start randomly
     @grid = LifeGrid.new(self)
     @grid.randomize

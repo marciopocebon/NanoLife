@@ -1,13 +1,20 @@
-# LifeVisualizer
+# NanoLife
 
-John Conway's Game of Life implemented in Ruby with Gosu
+John Conway's Game of Life implemented in Ruby with Gosu.
 
 ## Installation and usage
 
-	$ git clone https://github.com/NanoDano/NanoLife
+### Using Gem
+    $ gem install nanolife
+    $ nanolife
+    
+### From Source
+
+	$ git clone https://github.com/DevDungeon/NanoLife
 	$ cd NanoLife
 	$ gem install gosu
 	$ ruby NanoLife.rb
+
 
 ## Keybinds
 
@@ -19,4 +26,24 @@ John Conway's Game of Life implemented in Ruby with Gosu
 
 Variables can be configured at the top of the program as constants.
 
-nanodano@devdungeon.com 2014
+## Screenshots
+
+![Screenshot of main window](screenshots/NanoLifeMainWindow.png)
+
+## Source Code
+
+* [NanoLife (GitHub.com)](https://www.github.com/DevDungeon/NanoLife)
+
+## Contact
+
+NanoDano <nanodano@devdungeon.com>
+http://www.devdungeon.com
+
+## License
+
+MIT. See LICENSE.txt.
+
+## Changelog
+
+v1.0 - 2016/11/19 - Releasing as gem on GitHub
+v0.5 - 2014/07/30 - Initial implementation
