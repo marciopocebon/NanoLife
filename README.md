@@ -14,7 +14,7 @@ John Conway's Game of Life implemented in Ruby with Gosu.
 ### Including in Source Code
 
 	$ irb
-	>>> require 'nanolife'
+	>>> require 'NanoLife'
     >>> game = LifeGameWindow.new
     >>> game.show
 
