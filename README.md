@@ -2,9 +2,12 @@
 
 John Conway's Game of Life implemented in Ruby with Gosu.
 
-## Installation and usage
+
+
+## Quick Start
 
 ### Using Gem
+
     $ gem install nanolife
     $ nanolife
     
@@ -37,9 +40,17 @@ Linux installing build-essential, libsdl2-dev,
 libsdl-ttf-dev, libopenal-dev, libpango1.0-dev,
 libsndfile-dev, and ruby-dev packages.
 
+## Website
+
+* [NanoLife on DevDungeon.com](http://www.devdungeon.com/content/nanolife)
+
 ## Source Code
 
 * [NanoLife (GitHub.com)](https://www.github.com/DevDungeon/NanoLife)
+
+## Ruby Gem
+
+* [nanolife on RubyGems.org](https://rubygems.org/gems/nanolife)
 
 ## Contact
 
